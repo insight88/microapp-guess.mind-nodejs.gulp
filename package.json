@@ -1,0 +1,26 @@
+{
+  "name": "microapp-guess.mind-nodejs.gulp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/insight88/microapp-guess.mind-nodejs.gulp.git",
+  "author": "insight88 <64120339+insight88@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.5",
+    "eslint": "^7.8.1",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4",
+    "socket.io": "^2.3.0"
+  },
+  "scripts": {
+    "dev:server": "nodemon --exec babel-node src/server"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.1"
+  }
+}
