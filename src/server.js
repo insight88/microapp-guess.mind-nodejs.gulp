@@ -30,6 +30,22 @@ const io = socketIO.listen(server);
 let sockets = [];
 
 io.on("connection", socket => {
-  sockets.push(socket.id)
-  console.log(sockets)
+  socket.on("newMessage", ({
+    // * socket.on(event, data) : socket이 event를 listening하고 있다는 뜻
+    message
+  }) => {
+    socket.broadcast.emit("messageNotif", {
+      // * socket.emit(event, data) : socket이 event를 발생시킨다는 뜻
+      // * 한 socket에서 newMessage 이벤트 발생 시, 다른 소켓들에게 messageNotif 이벤트를 broadcast
+      message,
+      nickname: socket.nickname || "Unknown"
+    });
+  });
+  socket.on("setNickname", ({
+    nickname,
+  }) => {
+    socket.nickname = nickname;
+  });
 });
+// * io는 socket.io 패키지를 import한 변수, listening하고 있는 서버
+// * socket은 커넥션이 성공했을 때 커넥션에 대한 정보를 담고 있는 변수
