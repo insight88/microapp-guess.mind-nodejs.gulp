@@ -1,3 +1,5 @@
+// ! 유저가 발생시키는 이벤트를 감지하고, 다른 유저들에게 새로운 이벤트를 전달하는 Controller
+
 import events from './events';
 
 const socketController = (socket) => {
@@ -14,8 +16,20 @@ const socketController = (socket) => {
     broadcast(events.disconnected, { nickname: socket.nickname });
   });
 
-  socket.on(events.sendMsg, ({ message }) => {
-    broadcast(events.newMsg, { message, nickname: socket.nickname });
+  socket.on(events.sendMsg, ({ message }) =>
+    broadcast(events.newMsg, { message, nickname: socket.nickname })
+  );
+
+  socket.on(events.beginPath, ({ x, y }) =>
+    broadcast(events.beganPath, { x, y })
+  );
+
+  socket.on(events.strokePath, ({ x, y, color }) => {
+    broadcast(events.strokedPath, { x, y, color });
+  });
+
+  socket.on(events.fill, ({ color }) => {
+    broadcast(events.filled, { color });
   });
 };
 
