@@ -52,7 +52,8 @@ const io = socketIO.listen(server);
 //     socket.nickname = nickname;
 //   });
 // });
-// * io는 socket.io 패키지를 import한 변수, listening하고 있는 서버
-// * socket은 커넥션이 성공했을 때 커넥션에 대한 정보를 담고 있는 변수
 
-io.on('connection', (socket) => socketController(socket));
+io.on('connection', (socket) => socketController(socket, io));
+// * io는 socket.io 패키지를 import한 변수, listening하고 있는 서버
+// * socket은 커넥션이 성공했을 때 커넥션에 대한 정보(client 정보)를 담고 있는 변수
+// * socket이 io에 connection되면, socketController에 socket(clinet)과 io(server) 객체를 모두 전달한다
