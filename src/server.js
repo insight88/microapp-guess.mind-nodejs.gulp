@@ -1,11 +1,13 @@
-import {
-  join
-} from 'path';
+// ! server.js와 static 폴더는 server측 소스
+// ! assets 폴더는 client측 소스
+
+import { join } from 'path';
 import express from 'express';
 import socketIO from 'socket.io';
-import logger from 'morgan'
-import socketController from "./socketController";
-import events from "./events";
+import logger from 'morgan';
+// * 콘솔에 나오는 GET /  200 51.267 ms - 1539 같은 로그가 나오는 미들웨어
+import socketController from './socketController';
+import events from './events';
 
 // * http method는 모두 stateless (req,res 후 연결이 끊김)
 // * ws(websocket)은 stateful (server와 client가 계속 연결되어 있음)
@@ -17,15 +19,15 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', join(__dirname, 'views'));
 app.use(express.static(join(__dirname, 'static')));
-app.use(logger("dev"))
-app.get("/", (req, res) =>
-  res.render("home", {
-    events: JSON.stringify(events)
+app.use(logger('dev'));
+app.get('/', (req, res) =>
+  res.render('home', {
+    events: JSON.stringify(events),
   })
 );
 const handleListening = () => {
   console.log(`✅ Server running: http://localhost:${PORT}`);
-}
+};
 
 const server = app.listen(PORT, handleListening);
 const io = socketIO.listen(server);
@@ -53,4 +55,4 @@ const io = socketIO.listen(server);
 // * io는 socket.io 패키지를 import한 변수, listening하고 있는 서버
 // * socket은 커넥션이 성공했을 때 커넥션에 대한 정보를 담고 있는 변수
 
-io.on("connection", socket => socketController(socket));
+io.on('connection', (socket) => socketController(socket));
