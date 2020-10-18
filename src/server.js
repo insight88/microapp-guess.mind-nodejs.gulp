@@ -5,7 +5,6 @@ import { join } from 'path';
 import express from 'express';
 import socketIO from 'socket.io';
 import logger from 'morgan';
-// * 콘솔에 나오는 GET /  200 51.267 ms - 1539 같은 로그가 나오는 미들웨어
 import socketController from './socketController';
 import events from './events';
 
